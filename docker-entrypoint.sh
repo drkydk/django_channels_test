@@ -9,6 +9,7 @@ then
   "User.objects.create_superuser('test', 'drkydk@gmail.com', 'test')"\
   " if not User.objects.filter(username='test').exists() else ''"\
    | python manage.py shell
+  python manage.py collectstatic --no-input
 # daphne -b 0.0.0.0 djangoProject2.asgi:application
   python manage.py runserver 0.0.0.0:8000
 else
