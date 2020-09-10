@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 style="text-align: center">Sample Website</h1>
+<h3><b>Hello, user {{ user_short }}</b></h3>
+{% if channels %}
+    {% for channel in channels %}
+        <ul>
+            <a href="/chat/{{ channel.room_name }}">
+                {% if user in channel.seen_by %}
+                    Conversation with {{ channel.room_name|slice:":4" }}
+                {% else %}
+                    New message from {{ channel.room_name|slice:":4" }}!
+                {% endif %}
+            </a>
+        </ul>
+    {% endfor %}
+{% endif %}
+<h2>Products</h2>
+{% for product in product_list %}
+    <h4>{{ product.id }} - {{ product.name }}</h4>
+    <img src='/media/{{ product.image }}'>
+    <video width="320" height="240" controls>
+        <source src='/media/{{ product.video }}'>
+    </video>
+    <p>Description: {{ product.description }}</p>
+    <p>Price: {{ product.price }}</p>
+    {{ product.seller.id }}
+    <a href="/chat/{{ user }}{{ product.session_id }}">Message Seller</a>
+{% endfor %}
+{#<script>#}
+{#    var location = window.location#}
+{#    var wsStart = 'ws://'#}
+{##}
+{#    if (location.protocol == 'https:') {#}
+{#        wsStart = 'wss://'#}
+{#    }#}
+{##}
+{#    var endpoint = wsStart + location.host + '/chat/';#}
+{#    var socket = new WebSocket(endpoint);#}
+{##}
+{#    socket.onmessage = function(e) {#}
+{#        console.log(e)#}
+{#    }#}
+{#    socket.onopen = function(e) {#}
+{#        console.log(e)#}
+{#    }#}
+{#    socket.onerror = function(e) {#}
+{#        console.log(e)#}
+{#    }#}
+{#    socket.onclose = function(e) {#}
+{#        console.log(e)#}
+{#    }#}
+{##}
+{#</script>#}
+</body>
+</html>

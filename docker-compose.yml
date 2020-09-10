@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    environment:
+      MYSQL_ROOT_PASSWORD: django-root-pass
+      MYSQL_DATABASE: django-demo-db
+      MYSQL_USER: django-demo-user
+      MYSQL_PASSWORD: django-demo-password
+#    healthcheck:
+#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+#      timeout: 20s
+#      retries: 10
+  web:
+    build: .
+    # command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      RUN_FLAG: DEMO
+    entrypoint: /code/docker-entrypoint.sh
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # restart: on-failure
+  broker:
+    image: redis
+    ports:
+      - "6379:6379"
