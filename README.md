@@ -3,9 +3,11 @@ Quick demo environment for django channels chat with public chatrooms
 
 Created in 4 hours.
 
-Requires functional docker-compose
+Requires:
+* functional docker-compose
 
 Installation: pull & docker-compose up in the folder
+(Builds MySQL, Redis & Django Core)
 
 Test superuser: test / pass: test
 
